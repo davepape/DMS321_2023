@@ -1,0 +1,10 @@
+<%- include('demo_header.ejs') -%>
+
+<h1>Users</h1>
+<ul id="users">
+  <% users.forEach(function(user){ %>
+    <li><%= user.name %> &lt;<%= user.email %>&gt;</li>
+  <% }) %>
+</ul>
+
+<%- include('demo_footer.ejs') -%>
