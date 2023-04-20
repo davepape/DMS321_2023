@@ -13,7 +13,7 @@ app.get('/', function (req, res) {
     res.send('<p>Hello World, from express</p>');
     });
 
-app.use('/demo', require('./demo1.js'));
+app.use('/demo', require('./demo0.js'));
 
 let port = process.env.NODE_PORT;
 
