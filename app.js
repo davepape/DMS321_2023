@@ -13,9 +13,9 @@ app.get('/', function (req, res) {
     res.send('<p>Hello World, from express</p>');
     });
 
-app.use('/demo', require('./demo0.js'));
+app.use('/demo', require('./demo.js'));
 
-let port = process.env.NODE_PORT;
+let port = 18702;
 
 let server = app.listen(port, function () {
                 console.log(`server started on port ${port}`);
