@@ -17,7 +17,7 @@ app.get('/', function (req, res) {
     res.send('<p>Hello World, from express</p>');
     });
 
-app.use('/demo', require('./demo.js'));
+//app.use('/demo', require('./demo.js'));
 app.use('/movie', require('./movie.js'));
 //app.use('/chat', require('./chat.js'));
 
