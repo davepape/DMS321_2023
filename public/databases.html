@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DMS 321 - Class 9</title>
+<style>
+html {
+    font-size: 3em;
+    }
+h1.title {
+    text-decoration: underline;
+    }
+h1 {
+    text-align: center;
+    }
+ul {
+    margin-left: 1em;
+    }
+.tt { font-family: Courier; }
+div.leftcol
+  {
+  position: absolute;
+  width: 40%;
+  left: 2%;
+  }
+div.rightcol
+  { width: 40%;
+  position: absolute;
+  left: 50%;
+  }
+.boxed
+    {
+    border: solid;
+    }
+</style>
+</head>
+
+<body>
+
+
+<div class="page">
+<h1>Asynchrony</h1>
+<p>Issue a command, don't wait for the result</p>
+<div class="leftcol">
+<h2>Synchronous</h2>
+<pre>
+    fd = open("myfile.txt", O_WRONLY);
+    write(fd, data, 1);
+    close(fd);
+</pre>
+</div>
+<div class="rightcol">
+<h2>Asynchronous</h2>
+<pre>
+    fs.open("myfile.txt", "w", function (err,fd) {
+        fs.write(fd, data, function (err, written, string) {
+            fs.close(fd, function (err) {
+                });
+            });
+        });
+</pre>
+</div>
+</div>
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+
+<div class="page">
+<h1>Databases</h1>
+<ul>
+<li>collection of data
+<li>structure
+<li>persistence
+<li>API or query language
+</ul>
+<br>
+<p>"CRUD":</p>
+<ul>
+<li>Create
+<li>Read
+<li>Update
+<li>Delete
+</div>
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+
+<div class="page">
+<h1>SQL</h1>
+<ul>
+<li>"Structued Query Language"
+<li>for relational databases
+<li>MySQL, PostgreSQL, SQLite, Oracle, etc
+</ul>
+<br><br>
+<pre>
+SELECT * FROM City WHERE Name="Buffalo"
+UPDATE City SET Name="too small" WHERE Population < 1000
+</pre>
+</div>
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<div class="page">
+<h1>Relational Database</h1>
+<ul>
+<li>Tables
+<li>Rows
+<li>Columns
+</ul>
+<table border="1">
+<tr><th>ID<th>Name<th>CountryCode<th>District<th>Population</tr>
+<tr><td>1<td>Buffalo<td>US<td>New York<td>278349</tr>
+<tr><td>2<td>Rochester<td>US<td>New York<td>211388</tr>
+<tr><td>3<td>Chicago<td>US<td>Illinois<td>2746388</tr>
+<tr><td>4<td>London<td>UK<td>Greater London<td>8961989</tr>
+</table>
+<br><br>
+<img src="world-schema.png">
+</div>
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<div class="page">
+<h1>NoSQL</h1>
+<ul>
+<li>"document oriented" &amp; other models
+<li>mongodb, etc
+<li>collections / documents / fields
+<li><a href="http://mongodb.com/">mongodb.com</a> - cloud database
+</ul>
+<br><br>
+<pre>
+mydb.collection("movies").findOne({title: /Citizen/}, function (err,res) {
+    console.log(res.title);
+    }
+</pre>
+</div>
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+
+
+<h1>Mongodb commands</h1>
+<dl>
+<dt><em>Create</em>
+<dd>insertOne(), insertMany()
+<dt><em>Read</em>
+<dd>findOne(), find()
+<dt><em>Update</em>
+<dd>updateOne(), updateMany()
+<dt><em>Delete</em>
+<dd>deleteOne(), deleteMany()
+</dl>
+<br>
+<p>Supplementary details:</p>
+<ul>
+<li>database connection
+<li>queries
+<li>find() modifiers: sort(), limit(), toArray()
+<li>update operators
+</ul>
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+
+<h1>Database connection</h1>
+
+<p>
+Copy the example code from the mongodb.com Atlas control panel - under Cluster Overview, the "Connect" button.
+</p>
+<p>
+Will look something like:
+</p>
+<pre>
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://dave:password@cluster0.1iikc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+</pre>
+<br>
+<p>
+For better security (if your code is on github), replace the 'uri' line by:
+</p>
+<pre>
+const uri = process.env.ATLAS_URI;
+</pre>
+<p>
+And put the actual URI in your .bashrc; for example:
+</p>
+<pre>
+export ATLAS_URI="mongodb+srv://dave:badpassword@cluster0.1iikc.mongodb.net/sample_mflix?retryWrites=true&w=majority"
+</pre>
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+
+<h1>Queries</h1>
+<p>
+All database functions, other than insertion, use a "query" to find/reference documents in the database.
+</p>
+<p>
+In its simplest form, a query looks like a document (Javascript object), but with only some of the fields.
+</p>
+<pre>
+let query = { title: "Metropolis" };
+</pre>
+<br>
+<p>
+More advanced queries use <em>regular expressions</em> for pattern matching.
+</p>
+<pre>
+let query1 = { title: /Met/ };
+let query2 = { title: RegExp("holy grail", "i"); }
+</pre>
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+
+<h1>find() modifiers</h1>
+<p>
+find() returns a "cursor" object, which gives access to all the results of the search
+<br>
+this could be *many* documents, in no guaranteed order
+</p>
+
+<h2>toArray()</h2>
+<p>
+converts the cursor's data into a Javascript array, for easy processing
+</p>
+<pre>
+    collection.find(query).toArray(function (err,result) {
+        if (err) { throw err; }
+        for (let i=0; i < result.length; i++)
+            {
+            console.log(result[i]);
+            }
+        }
+</pre>
+
+<h2>limit()</h2>
+<p>
+limits the results to a given number, or less
+</p>
+<pre>
+    collection.find(query).limit(7).toArray(function (err,result) {
+        ...
+</pre>
+
+<h2>sort()</h2>
+<p>
+sorts results in increasing or decreasing order of a select field (or fields)
+</p>
+<pre>
+    /* sort by title (increasing) */
+    collection.find(query).sort({ title: 1}).toArray(function (err,result) {
+        ...
+</pre>
+<pre>
+    /* sort by year (increasing), then by title (decreasing) */
+    collection.find(query).sort({ year: 1, title: -1}).toArray(function (err,result) {
+        ...
+</pre>
+
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+
+<h1>insert operators</h1>
+<p>
+insertOne() and insertMany() add documents to the collection
+</p>
+<pre>
+    let newrecord = { username: "Dave", score: 0, position: {x:5, y:5} };
+    collection.insertOne(newrecord, function (err,result) {
+        if (err) { console.log(err); /* ... return error */ }
+        //... return success
+        });
+
+</pre>
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+
+<h1>update operators</h1>
+<p>
+updateOne() and updateMany() take an argument that says how to change each document that matches the query
+</p>
+<p>
+there are many possible operators, the basic one is "$set"
+</p>
+<p>
+the value associated with "$set" looks like a document, but only contains the fields you want to change
+</p>
+<pre>
+    let query = { username: "Dave" };
+    let newval = { $set: { position: { x:7, y:3 } } };
+    collection.updateMany(query, newval, function (err,result) {
+        if (err) { console.log(err); /* ... return error */ }
+        //... return success
+        });
+</pre>
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
+
+
+</body>
+</html>
