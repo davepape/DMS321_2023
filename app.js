@@ -19,7 +19,7 @@ app.get('/', function (req, res) {
 
 app.use('/demo', require('./demo.js'));
 app.use('/movie', require('./movie.js'));
-app.use('/chat', require('./chat.js'));
+//app.use('/chat', require('./chat.js'));
 
 let port = 18702;
 
