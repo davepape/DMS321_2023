@@ -18,8 +18,22 @@ async function getDb()
 
 async function index(req, res)
     {
-    res.render('moviesearch', { movies: [] });
+    if (req.body.title)
+        {
+        let db = await getDb();
+        let collection = db.collection("movies");
+        let query = { title: new RegExp(req.body.title, "i") };
+        collection.find(query).limit(10).toArray(function (err,result) {
+            if (err) { console.log(err); res.send(500); return; }
+            res.render('moviesearch', { movies: result });
+            });
+        }
+    else
+        {
+        res.render('moviesearch', { movies: [] });
+        }
     }
+
 
 const express = require('express');
 let router = express.Router();
