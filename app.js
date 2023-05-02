@@ -3,6 +3,17 @@
 const express = require('express');
 let app = express();
 
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const sess_uri = process.env.ATLAS_SESSION_URI;
+
+app.use(session({ secret: process.env.SESSION_SECRET,
+                  store: MongoStore.create({ mongoUrl: sess_uri }),
+                  resave: false,
+                  saveUninitialized: false,
+                  cookie: { maxAge: 24*60*60*1000 }}))
+
+
 app.set('view engine', 'ejs');
 app.use(function (req,res,next) { res.set('Cache-Control','no-store'); next(); });
 const path = require('path');
@@ -18,8 +29,10 @@ app.get('/', function (req, res) {
     });
 
 //app.use('/demo', require('./demo.js'));
-app.use('/movie', require('./movie.js'));
 //app.use('/chat', require('./chat.js'));
+app.use('/movie', require('./movie.js'));
+app.use('/cookies', require('./cookies.js'));
+app.use('/session', require('./sessiondemo.js'));
 
 let port = 18702;
 

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DMS 321: cookie survey summary</title>
+</head>
+
+<body>
+
+<table border='1'>
+<tr><th>Name</th><th>cookie monster</th><th>web cookies</th><th>IP address</th><th>timestamp</th></tr>
+  <% allResults.forEach(function(r){ %>
+    <tr>
+    <td><%= r.name %></td>
+    <td><%= r.monster %></td>
+    <td><%= r.web %></td>
+    <td><%= r.ipaddr %></td>
+    <td><%= r.timestamp %></td>
+    </tr>
+  <% }) %>
+</table>
+
+</body>
+
+</html>
