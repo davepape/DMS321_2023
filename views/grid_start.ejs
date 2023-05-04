@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DMS 321: grid demo</title>
+</head>
+    
+<body>
+
+<h1>Starting a game</h1>
+
+<p>
+I don't believe we've met.
+</p>
+
+<form action="<%= session.url %>/setname" method="POST">
+What is your name? <input type="text" name="name">
+<br>
+<input type="submit" value="start" id="submit">
+</form>
+
+</body>
+
+</html>

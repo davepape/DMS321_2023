@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DMS 321: session demo</title>
+<style>
+td { width: 100px; height: 100px; text-align: center; vertical-align: center }
+</style>
+</head>
+
+<body>
+
+<p>
+Hello, <%= session.username %>.
+</p>
+<p>
+<p>
+You have <%= session.money %> dollarbucks.
+</p>
+<p>
+Here is the game board:
+</p>
+<table border="1">
+<% session.board.forEach(function(row) { %>
+  <tr>
+  <% row.forEach(function(cell) { %>
+    <td> <img src="<%= session.boardAssets[cell] %>" width="90"> </td>
+  <% }) %>
+  </tr>
+<% }) %>
+</table>
+
+<p>
+<a href="<%= session.url %>/chooseplace/1">Place a type 1 cat</a>
+</p>
+
+<p>
+<a href="<%= session.url %>/chooseplace/2">Place a type 2 cat</a>
+</p>
+
+<p>
+<a href="<%= session.url %>/choosesell">Sell a cat</a>
+</p>
+
+<p>
+<a href="<%= session.url %>/restartconfirm">Restart</a>
+</p>
+
+</body>
+
+</html>

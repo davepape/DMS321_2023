@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DMS 321: session demo</title>
+<style>
+td { width: 100px; height: 100px; text-align: center; vertical-align: center }
+</style>
+</head>
+
+<body>
+
+<p>
+Hello, <%= session.username %>.
+<p>
+Where do you want to place the new cat? Click on any blank square.
+</p>
+<table border="1">
+<% let rownum=0; session.board.forEach(function(row) { %>
+  <tr>
+  <% let colnum=0; row.forEach(function(cell) { %>
+    <td> 
+    <% if (cell == 0) { %><a href="<%= session.url + '/place/' + toPlace + '/' + rownum + '/' + colnum %>"><img src="/<%= session.boardAssets[cell] %>" width="90"></a>
+    <% } else { %><img src="/<%= session.boardAssets[cell] %>" width="90">
+    <% } %>
+    </td>
+  <% colnum++; }) %>
+  </tr>
+<% rownum++; }) %>
+</table>
+
+<p>
+<a href="<%= session.url %>">Cancel</a>
+</p>
+
+</body>
+
+</html>
