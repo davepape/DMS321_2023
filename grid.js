@@ -87,7 +87,6 @@ let router = express.Router();
 router.get('/', index);
 router.post('/setname', setname);
 router.get('/restart', restart);
-router.get('/restart', restart);
 router.get('/restartconfirm', restartconfirm);
 router.get('/chooseplace/:num', chooseplace);
 router.get('/place/:num/:row/:col', placecat);
