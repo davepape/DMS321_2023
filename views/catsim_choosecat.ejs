@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DMS 321: simulation demo</title>
+<style>
+td { width: 100px; height: 100px; text-align: center; vertical-align: center }
+</style>
+</head>
+
+<body>
+
+<p>
+</p>
+<p>
+<p>
+Which type of cat do you want to buy?
+</p>
+<ul>
+<% let count=0; session.catbreeds.forEach(function(c) { %>
+<li><a href="<%= session.url %>/buycat/<%= count %>"><%= c.breedname %></a></li>
+<% count++; }); %>
+</ul>
+
+</body>
+
+</html>

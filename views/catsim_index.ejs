@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DMS 321: simulation demo</title>
+<style>
+td { width: 100px; height: 100px; text-align: center; vertical-align: center }
+</style>
+</head>
+
+<body>
+
+<p>
+Hello, <%= session.username %>. This is turn #<%= session.turn %>.
+</p>
+<p>
+<%- message %>
+</p>
+<p>
+<p>
+You have <%= session.catlist.length %> cats, <%= session.food %> units of food, and <%= session.money %> dollarbucks.
+</p>
+<p>
+Your cattery:
+</p>
+<ul>
+<% session.catlist.forEach(function(c) { %>
+<li><%= session.catbreeds[c].breedname %> <img src="<%= session.catbreeds[c].image %>"></li>
+<% }); %>
+</ul>
+<p>
+Your options are:
+</p>
+<ul>
+<li><a href="<%= session.url %>/choosecat">Buy a cat</a></li>
+<li><a href="<%= session.url %>/nextturn">Next turn</a></li>
+<li><a href="<%= session.url %>/restartconfirm">Restart</a></li>
+</ul>
+
+</body>
+
+</html>
