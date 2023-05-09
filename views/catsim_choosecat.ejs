@@ -18,8 +18,9 @@ Which type of cat do you want to buy?
 </p>
 <ul>
 <% let count=0; session.catbreeds.forEach(function(c) { %>
-<li><a href="<%= session.url %>/buycat/<%= count %>"><%= c.breedname %><img src="<%= c.image %>"></a></li>
+<li><a href="<%= session.url %>/buycat/<%= count %>"><%= c.breedname %><img src="/<%= c.image %>"></a></li>
 <% count++; }); %>
+<li><a href="<%= session.url %>">cancel</a>
 </ul>
 
 </body>
