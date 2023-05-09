@@ -37,6 +37,7 @@ app.get('/', function (req, res) {
 //app.use('/cookies', require('./cookies.js'));
 //app.use('/session', require('./sessiondemo.js'));
 //app.use('/grid', require('./grid.js'));
+//app.use('/catsim', require('./catsim.js'));
 
 /* Change this port number to something unique; everyone must use a different port for testing */
 let port = 18702;
