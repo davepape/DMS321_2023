@@ -49,6 +49,7 @@ function restartconfirm(req, res)
 
 function restart(req, res)
     {
+    req.session.url = req.baseUrl;
     res.render('grid_start', { session: req.session });
     }
 
