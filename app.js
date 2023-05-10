@@ -38,6 +38,7 @@ app.get('/', function (req, res) {
 //app.use('/session', require('./sessiondemo.js'));
 //app.use('/grid', require('./grid.js'));
 //app.use('/catsim', require('./catsim.js'));
+//app.use('/ajax', require('./ajaxserver.js'));
 
 /* Change this port number to something unique; everyone must use a different port for testing */
 let port = 18702;
