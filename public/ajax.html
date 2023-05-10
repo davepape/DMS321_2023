@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DMS 321: AJAX example</title>
+<script>
+let $ = document.querySelector.bind(document);
+
+window.onload = async function () {
+    $('#searchform').addEventListener('submit',doSearch);
+    }
+
+async function doSearch(event)
+    {
+    event.preventDefault();
+    let id = parseInt($('#objectid').value);
+    if (id > 0)
+        {
+        let response = await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`);
+        response.json().then(showResults);
+        }
+    }
+
+function showResults(data)
+    {
+    console.log(data);
+    $("#results").innerHTML = data.title;
+    }
+</script>
+</head>
+
+<body>
+<form id="searchform" method="POST">
+ID: <input type="text" name="objectid" id="objectid">
+<input type="submit" value="search">
+</form>
+<p>
+Results:
+<span id="results"></span>
+</p>
+</body>
+
+</html>

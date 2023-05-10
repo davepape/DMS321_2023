@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DMS 321: AJAX example 2</title>
+<script>
+let $ = document.querySelector.bind(document);
+
+window.onload = async function () {
+    $('#myform').addEventListener('submit',doAjax);
+    }
+
+async function doAjax(event)
+    {
+    event.preventDefault();
+    let num = $('#objectid').value;
+    let response = await fetch(`/ajax/increment/${num}`);
+    response.json().then(showResults);
+    }
+
+function showResults(data)
+    {
+    console.log(data);
+    $("#results").innerHTML = data.value;
+    }
+</script>
+</head>
+
+<body>
+<form id="myform" method="POST">
+ID: <input type="text" name="objectid" id="objectid">
+<input type="submit" value="increment">
+</form>
+<p>
+Results:
+<span id="results"></span>
+</p>
+</body>
+
+</html>
