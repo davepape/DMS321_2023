@@ -42,6 +42,8 @@ app.get('/', function (req, res) {
 
 /* Change this port number to something unique; everyone must use a different port for testing */
 let port = 18702;
+if (process.env.NODE_PORT)
+    port = parseInt(process.env.NODE_PORT);
 
 let server = app.listen(port, function () {
                 console.log(`server started on port ${port}`);
