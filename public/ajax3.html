@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DMS 321: AJAX example 2</title>
+<script>
+let $ = document.querySelector.bind(document);
+
+window.onload = async function () {
+    $('#myform').addEventListener('submit',sendInfo);
+    $('#resultsbutton').addEventListener('click',requestResults);
+    }
+
+async function sendInfo(event)
+    {
+    event.preventDefault();
+    let playername = $('#playername').value;
+    let playerscore = $('#playerscore').value;
+    let bodydata = { name: playername, value: playerscore };
+    fetch(`/ajax/saveinfo`, { method:'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(bodydata) }).then(sendInfoFinished);;
+    }
+
+function sendInfoFinished()
+    {
+    console.log('info sent');
+    requestResults();
+    }
+
+
+async function requestResults(event)
+    {
+    console.log('requesting results');
+    let response = await fetch(`/ajax/getinfo`);
+    response.json().then(showResults);
+    }
+
+function showResults(data)
+    {
+    console.log(data);
+    let s = '<ul>';
+    for (const name in data)
+        {
+        s += `<li>${name}: ${data[name]}</li>`;
+        }
+    s += '</ul>';
+    $("#results").innerHTML = s;
+    }
+</script>
+</head>
+
+<body>
+<form id="myform" method="POST">
+Name: <input type="text" name="playername" id="playername">
+<br>
+Score: <input type="text" name="playerscore" id="playerscore">
+<br>
+<input type="submit" value="submit">
+</form>
+<p>
+Results:
+</p>
+<div id="results"></div>
+<br>
+<button id="resultsbutton">update</button>
+</body>
+
+</html>
