@@ -38,9 +38,9 @@ function showResults(data)
     {
     console.log(data);
     let s = '<ul>';
-    for (const name in data)
+    for (const i in data)
         {
-        s += `<li>${name}: ${data[name]}</li>`;
+        s += `<li>${data[i].name}: ${data[i].score}</li>`;
         }
     s += '</ul>';
     $("#results").innerHTML = s;
