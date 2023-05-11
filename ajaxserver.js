@@ -10,16 +10,12 @@ function increment(req, res)
 
 function saveinfo(req, res)
     {
-    console.log('saveinfo');
-    console.log(req.body);
     savedInfo[req.body.name] = req.body.value;
-    let answer = { 'value': parseInt(req.params.num)+1 };
     res.send('saved');
     }
 
 function getinfo(req, res)
     {
-    console.log('got request for info');
     res.json(savedInfo);
     }
 
